@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KAY SPORT'S</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/photos/WhatsApp Image 2025-08-06 at 8.49.29 AM.jpeg">
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">KAY SPORT'S</span>
+    
+    <div class="d-flex align-items-center ms-auto">
+      <span class="me-2">Bienvenidos</span>
+      <img src="./static/photos/WhatsApp Image 2025-08-06 at 8.49.29 AM.jpeg" alt="Logo" class="navbar-logo">
+    </div>
+  </div>
+</nav>
+
+<!-- Separador para que el contenido no se esconda debajo de la navbar -->
+<div style="height: 80px;"></div>
+
+  <section class="carrusel">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./static/photos/do it.jpeg" class="d-block w-100" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+          <img src="./static/photos/camisas hombre.jpeg" class="d-block w-100" alt="Imagen 2">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </section>
+
+  <main>
+    <h2>Productos Destacados</h2>
+    <div class="productos">
+      <div class="producto">
+        <img src="./static/photos/tops.jpeg" alt="Producto 1" />
+        <h3>3 Piezas de sujetador Deportivo</h3>
+        <p>Talla: S, M, L</p>
+        <button onclick="agregarAlCarrito('Sujetador Deportivo')">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="./static/photos/licras short.jpeg" alt="Producto 2"/>
+        <h3>4 piezas de shorts de Yoga</h3>
+        <p>Talla: S, M, L</p>
+        <button onclick="agregarAlCarrito('Shorts de Yoga')">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="./static/photos/conjunto negro.jpeg" alt="Producto 3" />
+        <h3>Mono deportivo acanalado</h3>
+        <p>Talla: S, M, L</p>
+        <button onclick="agregarAlCarrito('Mono deportivo')">Agregar al carrito</button>
+      </div>
+    </div>
+  </main>
+
+  <section class="contacto">
+    <h2>Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Tu nombre" required />
+      <input type="email" placeholder="Tu correo" required />
+      <textarea placeholder="Escribe tu mensaje aquí..."></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <section class="carrito">
+    <h2>🛒 Carrito</h2>
+    <ul id="lista-carrito"></ul>
+    <button onclick="vaciarCarrito()">Vaciar carrito</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 KAY SPORT'S. Todos los derechos reservados.</p>
+    <div class="redes">
+      <a href="#"><img src="img/facebook.png" alt="Facebook" /></a>
+      <a href="#"><img src="img/instagram.png" alt="Instagram" /></a>
+      <a href="#"><img src="img/tiktok.png" alt="TikTok" /></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
