@@ -14,7 +14,23 @@
 
   <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">KAY SPORT'S</span>
+    <span class="navbar-brand mb-0 h1"><a class="navbar-brand" href="./index.html">KAY SPORT'S</a></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="./static/pages/catalogo.html">catalogo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./static/pages/contacto.html">contactanos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./static/pages/carrito.html">🛒 Carrito</a>
+        </li>
+      </ul>
+    </div>
     
     <div class="d-flex align-items-center ms-auto">
       <span class="me-2">Bienvenidos</span>
@@ -51,52 +67,65 @@
       <div class="producto">
         <img src="./static/photos/tops.jpeg" alt="Producto 1" />
         <h3>3 Piezas de sujetador Deportivo</h3>
-        <p>Talla: S, M, L</p>
-        <button onclick="agregarAlCarrito('Sujetador Deportivo')">Agregar al carrito</button>
+        <p>
+          Talla:
+          <select id="talla-sujetador">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </p>
+        <p>Precio: C$990</p>
+        <button onclick="agregarAlCarrito('Sujetador Deportivo', 990, document.getElementById('talla-sujetador').value)">Agregar al carrito</button>
       </div>
 
       <div class="producto">
-        <img src="./static/photos/licras short.jpeg" alt="Producto 2"/>
-        <h3>4 piezas de shorts de Yoga</h3>
-        <p>Talla: S, M, L</p>
-        <button onclick="agregarAlCarrito('Shorts de Yoga')">Agregar al carrito</button>
-      </div>
+  <img src="./static/photos/licras short.jpeg" alt="Producto 2" />
+  <h3>4 piezas de shorts de Yoga</h3>
+  <br>
+  <p>
+    Talla:
+    <select id="talla-short">
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+    </select>
+  </p>
+  <p>Precio: C$480</p>
+  <button onclick="agregarAlCarrito('Shorts de Yoga', 480, document.getElementById('talla-short').value)">Agregar al carrito</button>
+</div>
 
-      <div class="producto">
-        <img src="./static/photos/conjunto negro.jpeg" alt="Producto 3" />
-        <h3>Mono deportivo acanalado</h3>
-        <p>Talla: S, M, L</p>
-        <button onclick="agregarAlCarrito('Mono deportivo')">Agregar al carrito</button>
-      </div>
+<div class="producto">
+  <img src="./static/photos/conjunto negro.jpeg" alt="Producto 3" />
+  <h3>Mono deportivo acanalado</h3>
+  <br>
+  <p>
+    Talla:
+    <select id="talla-mono">
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+    </select>
+  </p>
+  <p>Precio: C$320</p>
+  <button onclick="agregarAlCarrito('Mono deportivo', 320, document.getElementById('talla-mono').value)">Agregar al carrito</button>
+</div>
+
     </div>
   </main>
 
-  <section class="contacto">
-    <h2>Contáctanos</h2>
-    <form>
-      <input type="text" placeholder="Tu nombre" required />
-      <input type="email" placeholder="Tu correo" required />
-      <textarea placeholder="Escribe tu mensaje aquí..."></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
-
-  <section class="carrito">
-    <h2>🛒 Carrito</h2>
-    <ul id="lista-carrito"></ul>
-    <button onclick="vaciarCarrito()">Vaciar carrito</button>
-  </section>
-
+<div class="main-content">
+        </div>
   <footer>
     <p>&copy; 2025 KAY SPORT'S. Todos los derechos reservados.</p>
     <div class="redes">
-      <a href="#"><img src="img/facebook.png" alt="Facebook" /></a>
-      <a href="#"><img src="img/instagram.png" alt="Instagram" /></a>
-      <a href="#"><img src="img/tiktok.png" alt="TikTok" /></a>
+      <a href="#"><img src="./static/photos/fb.png" alt="Facebook" /></a>
+      <a href="#"><img src="./static/photos/ig.png" alt="Instagram" /></a>
+      <a href="#"><img src="./static/photos/titktok.png" alt="TikTok" /></a>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="./static/scripts/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,30 +1,16 @@
-let carrito = [];
+let carrito= []
+function agregarAlCarrito(nombre, precio, talla) {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function agregarAlCarrito(producto) {
-  carrito.push(producto);
-  mostrarCarrito();
-}
+  // Buscar si ya existe el producto con misma talla
+  const index = carrito.findIndex(item => item.nombre === nombre && item.talla === talla);
 
-function mostrarCarrito() {
-  const lista = document.getElementById("lista-carrito");
-  lista.innerHTML = "";
-  carrito.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.textContent = item + " ";
-    const btn = document.createElement("button");
-    btn.textContent = "Eliminar";
-    btn.onclick = () => eliminarDelCarrito(index);
-    li.appendChild(btn);
-    lista.appendChild(li);
-  });
-}
+  if (index !== -1) {
+    carrito[index].cantidad += 1;
+  } else {
+    carrito.push({ nombre, precio, talla, cantidad: 1 });
+  }
 
-function eliminarDelCarrito(index) {
-  carrito.splice(index, 1);
-  mostrarCarrito();
-}
-
-function vaciarCarrito() {
-  carrito = [];
-  mostrarCarrito();
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  alert("Producto añadido al carrito");
 }
