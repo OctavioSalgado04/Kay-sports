@@ -114,10 +114,10 @@
     numeroTarjeta.addEventListener("input", () => {
       const valor = numeroTarjeta.value.replace(/\s+/g, '');
       if (/^4/.test(valor)) {
-        logoTarjeta.src = "../../photos/visa.png";
+        logoTarjeta.src = "../photos/visa.png";
         logoTarjeta.style.display = "inline";
       } else if (/^5[1-5]/.test(valor)) {
-        logoTarjeta.src = "../../photos/mastercard.png";
+        logoTarjeta.src = "../photos/mastercard.png";
         logoTarjeta.style.display = "inline";
       } else {
         logoTarjeta.style.display = "none";
