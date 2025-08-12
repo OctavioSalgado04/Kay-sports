@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagar</title>
+  <link rel="icon" type="image/png" href="../../photos/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../photos/WhatsApp Image 2025-08-06 at 8.49.29 AM.jpeg">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .pago-card {
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 25px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .logo-tarjeta {
+      width: 50px;
+      margin-left: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body style="background:#f8f9fa;">
+  <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../../index.html">KAY SPORT'S</a>
+    </div>
+  </nav>
+
+  <div class="pago-card">
+    <h3 class="text-center mb-4">Método de Pago</h3>
+
+    <form id="form-pago">
+      <!-- Dirección -->
+      <div class="mb-3">
+        <label class="form-label">Dirección de entrega</label>
+        <input type="text" class="form-control" id="direccion" placeholder="Calle, número, ciudad..." required>
+      </div>
+
+      <!-- Método -->
+      <div class="mb-3">
+        <label class="form-label">Seleccione método de pago:</label>
+        <select class="form-select" id="metodo" required>
+          <option value="">-- Seleccione --</option>
+          <option value="tarjeta">Tarjeta de crédito/débito</option>
+          <option value="efectivo">Pago en efectivo</option>
+        </select>
+      </div>
+
+      <!-- Total -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Total a pagar:</label>
+        <p id="total-pagar" class="fs-5">C$0</p>
+      </div>
+
+      <!-- Datos tarjeta -->
+      <div id="datos-tarjeta" style="display:none;">
+        <div class="mb-3 d-flex align-items-center">
+          <div class="flex-grow-1">
+            <label class="form-label">Número de tarjeta</label>
+            <input type="text" class="form-control" id="numero-tarjeta" maxlength="19" placeholder="XXXX XXXX XXXX XXXX">
+          </div>
+          <img id="logo-tarjeta" class="logo-tarjeta" alt="Tipo tarjeta">
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Fecha de caducidad</label>
+            <input type="month" class="form-control" id="fecha-caducidad">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">CVC</label>
+            <input type="text" class="form-control" id="cvc" maxlength="4" placeholder="123">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pago en efectivo -->
+      <div id="datos-efectivo" style="display:none;">
+        <div class="mb-3">
+          <label class="form-label">¿Con cuánto pagará?</label>
+          <input type="number" class="form-control" id="monto-efectivo" min="1" placeholder="Ej: 1000">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-3">Confirmar pago</button>
+    </form>
+  </div>
+
+  <script>
+    const metodo = document.getElementById("metodo");
+    const datosTarjeta = document.getElementById("datos-tarjeta");
+    const datosEfectivo = document.getElementById("datos-efectivo");
+    const numeroTarjeta = document.getElementById("numero-tarjeta");
+    const logoTarjeta = document.getElementById("logo-tarjeta");
+    const totalPagarTexto = document.getElementById("total-pagar");
+
+    // Cargar total desde localStorage
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    let totalCompra = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    totalPagarTexto.textContent = `C$${totalCompra}`;
+
+    // Mostrar campos según método
+    metodo.addEventListener("change", () => {
+      datosTarjeta.style.display = metodo.value === "tarjeta" ? "block" : "none";
+      datosEfectivo.style.display = metodo.value === "efectivo" ? "block" : "none";
+    });
+
+    // Detectar tipo de tarjeta
+    numeroTarjeta.addEventListener("input", () => {
+      const valor = numeroTarjeta.value.replace(/\s+/g, '');
+      if (/^4/.test(valor)) {
+        logoTarjeta.src = "../../photos/visa.png";
+        logoTarjeta.style.display = "inline";
+      } else if (/^5[1-5]/.test(valor)) {
+        logoTarjeta.src = "../../photos/mastercard.png";
+        logoTarjeta.style.display = "inline";
+      } else {
+        logoTarjeta.style.display = "none";
+      }
+    });
+
+    // Validaciones
+    function validarTarjeta(numero) {
+      const limpio = numero.replace(/\s+/g, '');
+      if (!/^\d{13,19}$/.test(limpio)) return false;
+      let suma = 0, alternar = false;
+      for (let i = limpio.length - 1; i >= 0; i--) {
+        let n = parseInt(limpio[i], 10);
+        if (alternar) {
+          n *= 2;
+          if (n > 9) n -= 9;
+        }
+        suma += n;
+        alternar = !alternar;
+      }
+      return (suma % 10) === 0;
+    }
+    function validarFecha(fecha) {
+      if (!fecha) return false;
+      const [año, mes] = fecha.split("-");
+      const hoy = new Date();
+      const fechaIngresada = new Date(parseInt(año), parseInt(mes) - 1);
+      return fechaIngresada >= new Date(hoy.getFullYear(), hoy.getMonth());
+    }
+    function validarCVC(cvc) {
+      return /^\d{3,4}$/.test(cvc);
+    }
+
+    // Enviar formulario
+    document.getElementById("form-pago").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const direccion = document.getElementById("direccion").value.trim();
+      if (!direccion) {
+        alert("Debe ingresar la dirección de entrega.");
+        return;
+      }
+
+      if (metodo.value === "tarjeta") {
+        const numero = numeroTarjeta.value.trim();
+        const fecha = document.getElementById("fecha-caducidad").value;
+        const cvc = document.getElementById("cvc").value.trim();
+        if (!validarTarjeta(numero)) return alert("Número de tarjeta inválido.");
+        if (!validarFecha(fecha)) return alert("Fecha de caducidad inválida.");
+        if (!validarCVC(cvc)) return alert("CVC inválido.");
+      }
+
+      if (metodo.value === "efectivo") {
+        const monto = parseFloat(document.getElementById("monto-efectivo").value);
+        if (isNaN(monto) || monto < totalCompra) {
+          return alert(`Debe ingresar un monto mayor o igual a C$${totalCompra}.`);
+        }
+      }
+
+      alert("Pago realizado con éxito. ¡Gracias por su compra!");
+      localStorage.removeItem("carrito");
+      window.location.href = "../../index.html";
+    });
+  </script>
+</body>
+</html>

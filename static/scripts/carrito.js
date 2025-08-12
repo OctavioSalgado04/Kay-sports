@@ -53,6 +53,17 @@
       };
       lista.parentNode.appendChild(btnVaciar);
     }
+     // Botón para proceder al pago
+  if (!document.getElementById("btn-pagar")) {
+    const btnPagar = document.createElement("button");
+    btnPagar.id = "btn-pagar";
+    btnPagar.textContent = "Proceder al pago";
+    btnPagar.className = "btn btn-success mt-3";
+    btnPagar.onclick = () => {
+      window.location.href = "../pages/pagar.html";
+    };
+    lista.parentNode.appendChild(btnPagar);
+  }
   }
 
   renderizarCarrito();
